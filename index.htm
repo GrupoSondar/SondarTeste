@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="pt-pt" style="" class=" js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage no-websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients no-cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers no-applicationcache svg inlinesvg smil svgclippaths">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CódigoDoFiltro - Registo Peso Inicial</title>
+	
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/all.min.css" rel="stylesheet">
+    <link href="css/fontawesome.min.css" rel="stylesheet">
+    <link href="css/site.css" rel="stylesheet">
+
+    <script src="js/modernizr"></script>
+</head>
+<body>
+	<!--Boilerplate para as janelas modais do Bootstrap-->
+    <div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content border-secondary">
+                <div id="myModalBody" class="modal-body">
+                </div>
+            </div>
+        </div>
+    </div>
+	<!--Boilerplate para animação de loading-->
+    <div id="loader" class="modal" tabindex="-1" role="dialog" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content bg-transparent border-0">
+                <div id="loaderBody" class="modal-body">
+                    <p class="text-center text-white mt-4 mb-1"><i class="fas fa-2x fa-spinner fa-spin"></i> </p>
+                    <p class="text-center text-white small">A carregar</p>
+                </div>
+            </div>
+        </div>
+    </div>
+	<!--Barra de navegação-->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand" href="#"><img src="img/sondar.i_x2.png" height="30" alt="Sondar.i"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li></li>
+                </ul>
+                <span class="navbar-text">Olá User </span><span>&nbsp;</span><span class="navbar-text"><a href="#">Sair</a></span>
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content">
+	
+        <div class="card">
+            <div class="card-header d-flex justify-content-between">
+                <h4 class="m-0 mr-auto">CódigoDoFiltro - Registo Peso Inicial</h4>
+                <div class="btn-group" role="group" aria-label="First group">
+                    <button id="Copy" type="button" class="btn btn-outline-secondary" title="Copiar peso"><i class="fas fa-copy"></i></button>
+                    <button id="Paste" type="button" class="btn btn-outline-secondary" title="Colar peso"><i class="fas fa-paste"></i></button>
+                </div>
+            </div><!--Fim card-header-->
+			
+            <div id="addPesoInicialBody" class="card-body">
+                <form id="addPesoForm" action="#" method="post">
+                    <div class="row mb-3 mb-md-0"><!--Secção de introdução de dados-->
+                        <div class="col-md mb-3">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="temperatura" id="Temperatura" name="Temperatura" required="">
+                                <div class="input-group-append" style="width: 64px;">
+                                    <span class="input-group-text" style="width: 100%;">℃</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md mb-3">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="humidade" id="Humidade" name="Humidade" required="">
+                                <div class="input-group-append" style="width: 64px;">
+                                    <span class="input-group-text" style="width: 100%;">%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md mb-3">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="pressão" id="Pressão" name="Pressão" required="">
+                                <div class="input-group-append" style="width: 64px;">
+                                    <span class="input-group-text" style="width: 100%;">mbar</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--Fim da secção de introdução de dados-->
+                    <div class="row"><!--Secção de cálculos auxiliares-->
+                        <div class="col-md mb-3">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="leitura min 1" id="Leitura1" name="Leitura1" required="">
+                                <div class="input-group-append" style="width: 64px;">
+                                    <span class="input-group-text" style="width: 100%;">mg</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md mb-3">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="leitura min 2" id="Leitura2" name="Leitura2" required="">
+                                <div class="input-group-append" style="width: 64px;">
+                                    <span class="input-group-text" style="width: 100%;">mg</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md mb-3">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="leitura min 3" id="Leitura3" name="Leitura3" required="">
+                                <div class="input-group-append" style="width: 64px;">
+                                    <span class="input-group-text" style="width: 100%;">mg</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--Fim da secção de cálculos auxiliares-->
+                    <div class="form-group"><!--Secção Observações-->
+                        <textarea class="form-control" id="Observações" name="Observações" rows="2" placeholder="observações"></textarea>
+                    </div>
+                    <div class="card-deck"><!--Secção de cálculos auxiliares-->
+                        <div class="card bg-light border-medium text-center">
+                            <div class="card-body d-flex align-items-center justify-content-center">
+                                <div>
+                                    <h3 class="card-title text-info">Cálculos intermédios</h3>
+                                    <p>x<sub>i</sub> = 6</p>
+                                    <p>x<sub>i</sub><sup>2</sup> = 14</p>
+                                    <p>y<sub>i</sub> = <span id="yi">NaN</span></p>
+                                    <p>x<sub>i</sub>.y<sub>i</sub> = <span id="xiyi">NaN</span></p>
+                                    <p>b = <span id="b">NaN</span></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="validadeCard" class="card bg-light border-medium text-center border-warning">
+                            <div class="card-body d-flex align-items-center justify-content-center">
+                                <div>
+                                    <h3 id="validade" class="card-title text-warning">Não Válido</h3>
+                                    <p><small class="text-muted">(C.A. = <span id="ca">0,5</span>mg, Diff = <span id="diff">NaN</span>mg)</small></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card bg-light border-medium text-center">
+                            <div class="card-body d-flex align-items-center justify-content-center">
+                                <div>
+                                    <h3 class="card-title text-primary">Extrapolado</h3>
+                                    <h4><span id="extr">NaN</span><small>±<span id="incerteza">0,17</span></small></h4>
+                                    <p class="small text-muted mb-0">(peso final =  ND)</p>
+                                    <p class="small text-muted">(diferença de massa = <span id="final">0,00</span> mg)</p>
+                                    <button id="Guardar" type="submit" class="btn btn-primary">guardar</button><br>
+                                    <a id="Cancel" class="btn btn-link" href="javascript:window.history.back();">cancelar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--Fim da secção de cálculos auxiliares-->
+                    <div id="HiddenFields">
+                        <input type="hidden" id="_id" name="_id" value="6616b125d407fa647f017d72">
+                        <input type="hidden" id="Criterio" name="Criterio" value="0,5">
+                        <input type="hidden" id="Identificação" name="Identificação" value="CódigoDoFiltro">
+                        <input type="hidden" id="isInicial" name="isInicial" value="True">
+                        <input type="hidden" id="Estado" name="Estado" value="Usado">
+                        <input type="hidden" id="Extrapolado2" name="Extrapolado2" value="0">
+                    </div>
+                </form>
+            </div><!--Fim card-body-->
+        </div><!--Fim card-->
+		
+        <hr>
+		
+        <footer>
+            <p>© 2024 - Sondar.i</p>
+        </footer>
+		
+    </div><!--Fim container-->
+
+    <script src="js/jquery-3.7.1.min.js"></script>
+
+    <script src="js/jquery.unobtrusive-ajax.min.js"></script>
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+    <script src="js/respond.min.js"></script>
+
+    <script src="js/jquery.validate.min.js"></script>
+
+    <script src="js/jquery.validate.unobtrusive.min"></script>
+
+    <script>
+        /*jshint esversion: 6, jquery: true*/
+
+        $(document).ready(function () {
+            calc();
+        });
+
+        $(":text").on("blur", function () {
+            calc();
+        });
+
+        function calc() {
+
+            /*Flag que indica se é peso inicial ou final*/
+            let isInicial = $('#isInicial').val();
+
+            /*Cálculo do extrapolado1 (valor desta pesagem)*/
+            let extrapolado1 = calcExtrapolado();
+
+            /*Cálculo da incerteza desta pesagem*/
+            let incerteza = CalcIncerteza(extrapolado1);
+
+            /*Flag que verifica se esta pesagem é válida*/
+            let valido = isValido();
+
+            /*O extrapolado2 é o valor da outra pesagem*/
+            let extrapolado2 = Number($('#Extrapolado2').val().replace(",", "."));
+
+            /*Cálculo da incerteza da outra pesagem*/
+            let incerteza2 = CalcIncerteza(extrapolado2);
+
+            /*RESULTADO FINAL*/
+            let diffMass = CalcDiferencaMassa(extrapolado1, extrapolado2, isInicial)
+
+            /*
+            A Incerteza do resultado final é cálculada com a fórmula:
+                Math.Sqrt((incertezaInicial * incertezaInicial) + (incertezaFinal * incertezaFinal))
+            O resultado deve ser arredondado para duas casasa decimais.
+            Entre o resultado e a incerteza deve estar sempre o símbolo "±";
+            */
+
+            $("#incerteza").text(incerteza.toLocaleString("pt-PT")); /*Incerteza só desta pesagem*/
+            $("#final").text(diffMass.toLocaleString("pt-PT", { useGrouping: false, minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+        }
+
+        function calcExtrapolado() {
+
+            /*Cálculo do valor extrapolado desta pesagem*/
+
+            /*Guarda as 3 pesagens num array*/
+            const leituras = [
+                parseFloat($("#Leitura1").val().replace(",", ".")),
+                parseFloat($("#Leitura2").val().replace(",", ".")),
+                parseFloat($("#Leitura3").val().replace(",", "."))
+            ];
+
+            /*Cálculo da média das 3 leituras*/
+            let yi = leituras.reduce((a, b) => a + b);/*Soma as 3 pesagens*/
+            let extr1 = yi / 3;
+
+            /*Cálculo da média ponderada das 3 leituras */
+            const xi = 6;
+            const xi2 = 14;
+            let xiyi = (leituras[0] * 1) + (leituras[1] * 2) + (leituras[2] * 3);
+            let b1 = 3 * xiyi - xi * yi;
+            let b2 = 3 * xi2 - xi * xi;
+            let b = b1 / b2;
+            let extr2 = b * xi / 3;
+
+            /*diferença entre as duas médias*/
+            let extr = extr1 - extr2; /*extrapolado final*/
+
+            /*Preenche os cálculos intermédios tendo em conta o locale pt-PT e o número de casas decimais necessário*/
+            $("#yi").text(yi.toLocaleString("pt-PT", { useGrouping: false, minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+            $("#xiyi").text(xiyi.toLocaleString("pt-PT", { useGrouping: false, minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+            $("#b").text(b.toLocaleString("pt-PT", { useGrouping: false, minimumFractionDigits: 3, maximumFractionDigits: 3 }));
+            $("#extr").text(extr.toLocaleString("pt-PT", { useGrouping: false, minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+
+            return extr;
+        }
+
+        function CalcDiferencaMassa(extrapolado1, extrapolado2, isInicial) {
+
+            /*Cálcula a diferença entre o peso final e o peso inicial*/
+            let diffMass = 0.0;
+            if (extrapolado1 > 0 & extrapolado2 > 0) {
+                if (isInicial == "True") {
+                    diffMass = extrapolado2 - extrapolado1;
+                }
+                else {
+                    diffMass = extrapolado1 - extrapolado2;
+                }
+            }
+
+            return diffMass;
+        }
+
+        function CalcIncerteza(extrapolado) {
+
+            /* devolve o valor da incerteza consoante o grau de grandeza do extrapolado */
+
+            let incerteza = 0.17;
+
+            if (extrapolado < 10000) {
+                incerteza = 0.05;
+            }
+            else if (extrapolado < 27500) {
+                incerteza = 0.07;
+            }
+            else if (extrapolado < 35000) {
+                incerteza = 0.10;
+            }
+            else if (extrapolado < 45000) {
+                incerteza = 0.10;
+            }
+
+            return incerteza;
+        }
+
+        function isValido() {
+
+            /*Determina se a pesagem é válida*/
+
+            /*Guarda as 3 pesagens num array*/
+            const leituras = [
+                parseFloat($("#Leitura1").val().replace(",", ".")),
+                parseFloat($("#Leitura2").val().replace(",", ".")),
+                parseFloat($("#Leitura3").val().replace(",", "."))
+            ];
+
+            /*Obtém o critério de aceitação*/
+            let ca = Number($('#Criterio').val().replace(",", "."));
+
+            /*Obtém a leitura mais alta*/
+            let maxLei = leituras.reduce((a, b) => Math.max(a, b));
+
+            /*Obtém a leitura mais baixa*/
+            let minLei = leituras.reduce((a, b) => Math.min(a, b));
+
+            /* a pesagem é válida se a diferença entre o máximo e minímo for inferior ou igual ao critério de aceitação*/
+            let valido = maxLei - minLei <= ca;
+
+            $("#ca").text(ca.toLocaleString("pt-PT"));
+            $("#diff").text((maxLei - minLei).toLocaleString("pt-PT", { useGrouping: false, minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+
+            if (valido) {
+                $("#validade").removeClass("text-success").removeClass("text-warning").addClass("text-success").text("Válido");
+                $("#validadeCard").removeClass("border-primary").removeClass("border-warning").addClass("border-primary");
+            }
+            else {
+                $("#validade").removeClass("text-success").removeClass("text-warning").addClass("text-warning").text("Não Válido");
+                $("#validadeCard").removeClass("border-primary").removeClass("border-warning").addClass("border-warning");
+            }
+
+            return valido;
+        }
+    </script>
+</body>
+</html>
